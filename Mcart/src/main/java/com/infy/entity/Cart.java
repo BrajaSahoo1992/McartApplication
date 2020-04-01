@@ -82,12 +82,7 @@ public class Cart {
 		this.cartDetails = cartDetails;
 	}
 
-	@Override
-	public String toString() {
-		return "Cart [cartId=" + cartId + ", userName=" + userName + ", dateOfCretion=" + dateOfCretion
-				+ ", dateOfModification=" + dateOfModification + ", statusOfCart=" + statusOfCart + ", cartDetails="
-				+ cartDetails + "]";
-	}
+	
 
 	
 	

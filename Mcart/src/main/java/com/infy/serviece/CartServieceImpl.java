@@ -1,5 +1,6 @@
 package com.infy.serviece;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,16 +21,12 @@ public class CartServieceImpl implements CartServiece {
 	@Override
 	public String addCart(Cart cart) {
 		cart.setDateOfCretion(new Date());
+		cart.setDateOfModification(new Date());
 		cart.setStatusOfCart("open");
-		System.out.println("cart"+cart.getCartDetails());
 		cart.getCartDetails().forEach((activity) -> {
 		      activity.setCart(cart);
 		   });
-		//cart.getCartDetails().forEach(activity);
-		/*CartDetails carts=new CartDetails();
-		carts.setCart(cart);*/
 		Cart cartDetails=cartRepo.saveAndFlush(cart);
-		System.out.println("CartDetails"+cartDetails);
 		return "Cart added sucessfully for username:"+cartDetails.getUserName();
 		
 	}
@@ -54,11 +51,11 @@ public class CartServieceImpl implements CartServiece {
 
 	@Override
 	public Cart updateCart(Cart cart) throws McartException {
-		Cart cartDetails=cartRepo.getCartDetailsByUserName(cart.getUserName());
+		Cart cartDetails=cartRepo.getCartDetailsByUserName(cart.getUserName());	
 		if(cartDetails!=null){
-			cart.setCartId(cartDetails.getCartId());
-			cart.setDateOfModification(new Date());
-			return cartRepo.save(cart);
+			cartDetails.setDateOfModification(new Date());
+			cartDetails.setCartDetails(cart.getCartDetails());
+			return cartRepo.save(cartDetails);
 		}
 		else{
 			throw new McartException(cart.getUserName()+" cart is not avialabel");

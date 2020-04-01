@@ -7,7 +7,9 @@ import com.infy.entity.Cart;
 
 public interface CartRepository  extends JpaRepository<Cart, Integer>{
 	
-	@Query(value="select * from Cart where user_name=?",nativeQuery=true)
+	@Query(value="select * from CART where user_name=?",nativeQuery=true)
 	public Cart getCartDetailsByUserName(String userName);
+	
+	
 
 }
